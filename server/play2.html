@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Document</title>
+</head>
+<body>
+
+<video id="video_sample" loop muted src="igloo2.mp4"></video>
+<script>
+
+    const ws = new WebSocket("ws://172.16.148.172:8083");
+    ws.addEventListener("open",() =>{
+        console.log("we are connected");
+    })
+
+    ws.addEventListener("close",() =>{
+        console.log("we are disconnected");
+    })
+
+
+    ws.addEventListener("message",(event) => {
+        console.log("lets play");
+        video_var.currentTime = 0;
+        video_var.play()
+
+    })
+    const video_var = document.getElementById("video_sample")
+
+    document.getElementById("button-play").addEventListener("click", ()=>{
+        console.log("clicked")
+        video_var.play()
+        ws.send("Plaaaay")
+
+    })
+</script>
+
+</body>
+</html>
+
+
+
+
